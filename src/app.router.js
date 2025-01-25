@@ -4,6 +4,7 @@ import userRouter from './modules/user/user.router.js'
 import authRouter from './modules/auth/auth.router.js'
 import clientRouter from './modules/cient/client.router.js'
 import categoryRouter from './modules/category/category.router.js'
+import orderRouter from './modules/order/order.router.js'
 const initApp = (app, express) => {
   app.use(express.json({}));
 
@@ -11,6 +12,8 @@ const initApp = (app, express) => {
   app.use("/user", userRouter);
   app.use("/client", clientRouter);
   app.use("/category", categoryRouter);
+  app.use("/order", orderRouter);
+
 
 
   app.all("*", (req, res, next) => {
