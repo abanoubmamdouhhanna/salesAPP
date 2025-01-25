@@ -25,7 +25,7 @@ const userSchema = new Schema(
     salary: {
       type: Number
     },
-    financialCommitments: { type: Number, default: 0 },
+    financialCommitments:Number,
     status: {
       type: String,
       default: "not Active",

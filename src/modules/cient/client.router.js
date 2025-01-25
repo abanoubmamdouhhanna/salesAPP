@@ -7,6 +7,7 @@ import {
   updateClientSchema,
 } from "./controller/client.validation.js";
 import { isValid } from "../../middlewares/validation.middleware.js";
+import { auth } from "../../Middlewares/auth.middleware.js";
 
 const router = Router();
 
@@ -14,7 +15,7 @@ const router = Router();
 router.post(
   "/addClient",
   isValid(headersSchema, true),
-  auth(["admin", "superAdmin"]),
+  auth(["admin", "superAdmin" ,"user"]),
   isValid(createClientSchema),
   clientController.addClient
 );
@@ -23,7 +24,7 @@ router.post(
 router.post(
   "/updateClient/:clientId",
   isValid(headersSchema, true),
-  auth(["admin", "superAdmin"]),
+  auth(["admin", "superAdmin" ,"user"]),
   isValid(updateClientSchema),
   clientController.updateClient
 );
@@ -32,7 +33,7 @@ router.post(
 router.delete(
   "/deleteClient/:clientId",
   isValid(headersSchema, true),
-  auth(["admin", "superAdmin"]),
+  auth(["admin", "superAdmin" ,"user"]),
   isValid(getAndDeleteSchema),
   clientController.deleteClient
 );
@@ -41,7 +42,7 @@ router.delete(
 router.get(
   "/allClients",
   isValid(headersSchema, true),
-  auth(["admin", "superAdmin"]),
+  auth(["admin", "superAdmin" ,"user"]),
   clientController.allClients
 );
 
@@ -49,9 +50,9 @@ router.get(
 router.get(
   "/getClient/:clientId",
   isValid(headersSchema, true),
-  auth(["admin", "superAdmin"]),
+  auth(["admin", "superAdmin","user"]),
   isValid(getAndDeleteSchema),
-  userController.getClient
+  clientController.getClient
 );
 
 export default router;

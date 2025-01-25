@@ -16,6 +16,13 @@ export const generalFeilds = {
     "string.min": "username should be at least 3 characters!",
     "string.max": "username should be less than 20 characters!",
   }),
+  name: joi.string().min(3).max(200).messages({
+    "any.required": "name is required",
+    "string.empty": "name cant't be empty",
+    "string.base": "name should be a type of string!",
+    "string.min": "name should be at least 3 characters!",
+    "string.max": "name should be less than 200 characters!",
+  }),
   email: joi
     .string()
     .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })

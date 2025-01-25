@@ -26,7 +26,12 @@ const clientSchema = new Schema(
       default: 0,
     },
     
-    orders: [{ type: Types.objectId, ref: "Order" }],
+    orders: [{ type: Types.ObjectId, ref: "Order" }],
+    
+    createdBy: { type: Types.ObjectId, ref: "User" },
+
+    updatedBy: { type: Types.ObjectId, ref: "User" },
+
     
     isDeleted: {
       type: Boolean,
@@ -43,7 +48,7 @@ clientSchema.pre("find", function () {
   this.where({ isDeleted: false });
 });
 
-clientSchema.virtual('orders', {
+clientSchema.virtual('clientOrders', {
   ref: 'Order', 
   localField: 'orders', 
   foreignField: '_id', 

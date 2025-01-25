@@ -3,30 +3,27 @@ import { generalFeilds } from "../../../middlewares/validation.middleware.js";
 
 export const headersSchema = generalFeilds.headers;
 
-export const createClientSchema = joi
+export const createCategorySchema = joi
   .object({
     name: generalFeilds.name.required(),
 
-    phone: generalFeilds.phone.required(),
+    description: joi.string(),
 
-    notes: joi.string(),
   })
   .required();
 
-export const updateClientSchema = joi
+export const updateCategorySchema = joi
   .object({
     name: generalFeilds.name,
 
-    phone: generalFeilds.phone,
+    description: joi.string(),
 
-    notes: joi.string(),
-
-    clientId: generalFeilds.id,
+    categoryId: generalFeilds.id,
   })
   .required();
 
 export const getAndDeleteSchema = joi
   .object({
-    clientId: generalFeilds.id,
+    categoryId: generalFeilds.id,
   })
   .required();

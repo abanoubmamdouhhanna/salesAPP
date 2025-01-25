@@ -12,6 +12,7 @@ export const addClient = asyncHandler(async (req, res, next) => {
     name,
     phone,
     notes,
+    createdBy: req.user._id,
   });
   return res.status(201).json({
     message: "Client added successfully.",
@@ -34,7 +35,7 @@ export const updateClient = asyncHandler(async (req, res, next) => {
   if (name || phone || notes) {
     const object = { ...req.body };
     for (let key in object) {
-      if (user[key] == object[key]) {
+      if (existClient[key] == object[key]) {
         return next(
           new Error(
             `Cannot update ${key} with the same value. Please provide a different value.`,
@@ -56,7 +57,7 @@ export const updateClient = asyncHandler(async (req, res, next) => {
       }
     }
   }
-
+  req.body.updatedBy = req.user._id;
   const updateClient = await clientModel.findByIdAndUpdate(clientId, req.body, {
     new: true,
   });
@@ -83,7 +84,9 @@ export const deleteClient = asyncHandler(async (req, res, next) => {
 //get all clients
 
 export const allClients = asyncHandler(async (req, res, next) => {
-  const allClients = await clientModel.find();
+  const allClients = await clientModel
+    .find()
+    .select("name phone totalPaid totalRemaining ");
   if (!allClients.length) {
     return res.status(404).json({
       status: "failure",
@@ -102,7 +105,10 @@ export const allClients = asyncHandler(async (req, res, next) => {
 
 export const getClient = asyncHandler(async (req, res, next) => {
   const { clientId } = req.params;
-  const client = await clientModel.findById(clientId);
+  const client = await clientModel.findById(
+    clientId,
+    "name phone totalPaid totalRemaining "
+  );
   if (!client) {
     return next(new Error("Invalid client ID.", { cause: 400 }));
   }

@@ -8,12 +8,16 @@ const categorySchema = new Schema(
 
     products: [{ type: Types.ObjectId, ref: "Product" }],
 
+    createdBy: { type: Types.ObjectId, ref: "User" },
+
+    updatedBy: { type: Types.ObjectId, ref: "User" },
+
     isDeleted: {
       type: Boolean,
       default: false,
     },
   },
-  { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true }}
+  { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 categorySchema.pre("find", function () {
   this.where({ isDeleted: false });

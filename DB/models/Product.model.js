@@ -7,11 +7,16 @@ const productSchema = new Schema(
       required: [true, "name is required"],
     },
 
-    categoryId: { type: Types.ObjectId, ref: "Category" },
-
     quantitiy: { type: Number, required: true },
 
+    categoryId: { type: Types.ObjectId, ref: "Category" },
+
     maintenanceId: { type: Types.ObjectId, ref: "Maintenance" },
+    
+    createdBy: { type: Types.ObjectId, ref: "User" },
+
+    updatedBy: { type: Types.ObjectId, ref: "User" },
+
 
     isDeleted: {
       type: Boolean,
@@ -36,5 +41,5 @@ productSchema.virtual("maintenanceDetails", {
   foreignField: "_id",
 });
 
-const producrModel = mongoose.models.Product || model("Product", productSchema);
-export default producrModel;
+const productModel = mongoose.models.Product || model("Product", productSchema);
+export default productModel;
